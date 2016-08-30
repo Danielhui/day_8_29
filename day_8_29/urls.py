@@ -14,12 +14,14 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from view import *
+from app01 import views
 
 
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^hello/$',hello),
-    url(r'^time/$',current_datetime),
-    url(r'^time/plus/(\d{1,2})/$',hours_ahead),
+    #url(r'^admin/', include(admin.site.urls)),
+    #url(r'^hello/$',hello),
+    #url(r'^time/$',current_datetime),
+    #url(r'^time/plus/(\d{1,2})/$',hours_ahead),
+    url(r'^search-form/$',views.search_form),
+    url(r'^search/$',views.search),
 ]
