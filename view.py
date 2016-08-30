@@ -16,12 +16,13 @@ def current_datetime(request):
     return HttpResponse(html)
 
 def hours_ahead(request):
-    now = datetime.datetime.now()
+    current_datetime = datetime.datetime.now()
     '''
     t=get_template('current_datetime.html')
     html = t.render(Context({'current_date':now})) 
     return HttpResponse(html)
     '''
-    return render_to_response('current_datetime.html',{'current_date':now})
+    return render_to_response('current_datetime.html',locals())
+
 
     
