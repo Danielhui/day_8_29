@@ -10,7 +10,7 @@ class Publisher(models.Model):
     country = models.CharField(max_length = 50)
     website = models.URLField()
     def __unicode__(self):
-        return self.title
+        return self.name
     
 class Author(models.Model):
     first_name = models.CharField(max_length = 30)
@@ -19,10 +19,24 @@ class Author(models.Model):
     def __unicode__(self):
         return u'%s %s' %(self.first_name,self.last_name)
     
+    
+class BookManager(models.Manager):
+    def title_count(self,keyword):
+        return self.filter(title__icontains = keyword).count()
+        
+class DahlBookManager(models.Manager):
+    def get_query_set(self):
+        return super(DahlBookManager,self).get_query_set().filter(auter='Road Dahl')
+
 class Book(models.Model):
     title = models.CharField(max_length = 100)
     authors = models.ManyToManyField(Author)
     Publisher = models.ForeignKey(Publisher)
     publication_date = models.DateField(blank=True,null = True)
+    mum_pages = models.IntegerField(blank=True ,null=True)
+    objects = models.Manager()
+    dahl_objects = DahlBookManager()
+    
+    
     def __unicode__(self):
         return self.title
